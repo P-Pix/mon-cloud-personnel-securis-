@@ -2,3 +2,4 @@ test/
 notes.txt
 frontend-vue/node_modules/
 frontend-react/node_modules/
+backend/node_modules/

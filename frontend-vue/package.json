@@ -11,5 +11,10 @@
   },
   "devDependencies": {
     "@vue/cli-service": "^5.0.8"
-  }
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

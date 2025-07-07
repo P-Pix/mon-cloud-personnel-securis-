@@ -1,8 +1,15 @@
-FROM node:18-alpine
+# backend/Dockerfile
+
+FROM node:18
 
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
 
-CMD ["npm", "start"]
+ENV PORT=3001
+
+CMD ["node", "index.js"]
