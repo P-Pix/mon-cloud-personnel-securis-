@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './App';
 
+// Crée la racine React et rend l’app dans le div #root
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<h1>Hello React</h1>);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

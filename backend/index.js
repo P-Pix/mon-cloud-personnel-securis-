@@ -1,14 +1,17 @@
 const app = require('./app');
-const port = process.env.PORT || 3001;
 
-app.listen(port, () => {
-  console.log(`Backend running at http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Serveur backend démarré sur le port ${PORT}`);
 });
 
-process.on('uncaughtException', err => {
-  console.error('Exception non capturée :', err);
+// Gestion simple des erreurs non catchées
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection:', reason);
 });
 
-process.on('unhandledRejection', err => {
-  console.error('Rejet de promesse non géré :', err);
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1); // Quitte pour éviter état instable
 });

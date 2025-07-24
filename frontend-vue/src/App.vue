@@ -1,48 +1,14 @@
 <template>
-  <div>
-    <h2>Login / Register Vue</h2>
-    <input v-model="username" placeholder="Username" />
-    <input v-model="password" type="password" placeholder="Password" />
-    <button @click="register">Register</button>
-    <button @click="login">Login</button>
-    <p>{{ message }}</p>
+  <div style="text-align: center; margin-top: 2rem;">
+    <h1>Bienvenue dans mon app Vue 3 !</h1>
+    <p>Ceci est un composant de base.</p>
   </div>
 </template>
 
-<script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      message: ''
-    };
-  },
-  methods: {
-    async register() {
-      try {
-        const res = await axios.post('http://localhost:3001/api/register', {
-          username: this.username,
-          password: this.password
-        });
-        this.message = res.data.message;
-      } catch (e) {
-        this.message = e.response?.data?.error || 'Erreur';
-      }
-    },
-    async login() {
-      try {
-        const res = await axios.post('http://localhost:3001/api/login', {
-          username: this.username,
-          password: this.password
-        });
-        this.message = res.data.message;
-      } catch (e) {
-        this.message = e.response?.data?.error || 'Erreur';
-      }
-    }
-  }
-};
+<script setup>
+// ici tu peux écrire du script Vue 3 composition API si besoin
 </script>
+
+<style scoped>
+/* styles locaux au composant */
+</style>
