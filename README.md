@@ -1,78 +1,187 @@
-# mon-cloud-personnel-securis-
+# Mon Cloud Personnel Sécurisé
 
-Projet pour développer mes connaissances à faire du réseau informatique et aussi pour approfondir le web avec back et front
+Un système de stockage cloud personnel avec interface web moderne, sécurisé et facile à utiliser.
 
-## Compétences developpées
+## 🚀 Fonctionnalités
 
-| Compétence                  | Technologies / Concepts                                   |
-| ---------------------------- | --------------------------------------------------------- |
-| Réseau informatique      | TCP/IP, ports, DNS, IP, SSH, pare-feu, NAT, etc.          |
-| Outils réseau          | `ping`,`netstat`,`curl`,`nc`,`iptables`,`ssh` |
-| Architecture web          | Client / Serveur, HTTP, REST, API, reverse proxy          |
-| Base de données SQL    | MySQL ou PostgreSQL pour comptes utilisateurs             |
-| Base de données NoSQL    | MongoDB pour stocker les métadonnées fichiers           |
-| Sécurité                | HTTPS, hash de mot de passe, authentification             |
-| Frontend                  | HTML, CSS, JavaScript (vanilla ou petit framework)        |
-| Backend                   | PHP ou Node.js (selon préférence)                       |
-| Virtualisation et Réseau | Docker, bridge network, port mapping, firewall            |
-| Déploiement            | Nginx, SSH, nom de domaine local (ex:`moncloud.local`)  |
+- **Interface web moderne** : Design responsive avec Tailwind CSS
+- **Authentification sécurisée** : Système de connexion avec JWT
+- **Upload de fichiers** : Glisser-déposer avec prévisualisation
+- **Gestion des dossiers** : Organisation hiérarchique des fichiers
+- **Sécurité** : Chiffrement des données et protection CORS
+- **Multi-formats** : Support d'images, documents, vidéos, audio, archives
+- **Responsive** : Compatible desktop, tablette et mobile
 
-## Structure du projet (progressive en 5 étapes)
+## 🛠️ Technologies utilisées
 
-### Étape 1 : Base système et réseau
+### Backend
+- Node.js + Express + TypeScript
+- SQLite pour la base de données
+- JWT pour l'authentification
+- Multer pour l'upload de fichiers
+- Bcrypt pour le hashage des mots de passe
+- Helmet pour la sécurité
 
-* Créer deux VMs ou conteneurs (serveur & client)
-* Tester la connectivité : `ping`, `traceroute`, `ssh`, `scp`
-* Ajouter un nom local via `/etc/hosts` : `moncloud.local`
-* Installer un serveur web (nginx ou apache)
-* Comprendre les  **ports ouverts** , **pare-feu (UFW/iptables)**
+### Frontend
+- React + TypeScript
+- Vite pour le build
+- Tailwind CSS pour le design
+- React Router pour la navigation
+- Axios pour les requêtes API
+- React Dropzone pour l'upload
+- Lucide React pour les icônes
 
-### Étape 2 : Backend avec PHP ou Node.js
+## 📦 Installation
 
-* Créer une API REST simple :
-  * Authentification utilisateur
-  * Upload de fichier (avec nom, type, taille)
-  * Listing des fichiers
-* Base SQL (MySQL ou SQLite) pour la gestion des utilisateurs
+### Prérequis
+- Node.js (version 18 ou supérieure)
+- npm ou yarn
 
-### Étape 3 : Frontend simple
+### Installation complète
+```bash
+# Cloner le repository
+git clone <votre-repo>
+cd mon-cloud-personnel-securis
 
-* HTML/CSS/JS (sans framework pour apprendre les bases)
-* Formulaire d’inscription/connexion
-* Interface d’upload et liste des fichiers avec lien de téléchargement
-* Appels JS à ton API (AJAX / `fetch()`)
+# Installer toutes les dépendances
+npm run install:all
 
-### Étape 4 : Base NoSQL pour les métadonnées
+# Configurer l'environnement serveur
+cd server
+cp .env.example .env
+# Éditez le fichier .env avec vos configurations
 
-* Utiliser MongoDB (ou autre NoSQL) pour stocker :
-  * Historique d’upload
-  * Logs réseau
-  * Métadonnées utilisateurs
+cd ..
+```
 
-### Étape 5 : Sécurité + Déploiement
+### Démarrage en mode développement
+```bash
+# Démarrer le serveur ET le client simultanément
+npm run dev
 
-* Hasher les mots de passe (bcrypt ou autre)
-* Passer ton site en HTTPS avec un certificat auto-signé
-* Configurer un reverse proxy nginx
-* Tester pare-feu, ports ouverts, redirections
-* Déployer sur une VM distante ou serveur local
+# OU démarrer séparément :
+# Serveur (port 3001)
+npm run dev:server
 
-### Bonus
+# Client (port 3000)
+npm run dev:client
+```
 
-* Ajouter une **authentification 2FA**
-* Générer des **liens de téléchargement temporaire**
-* Créer un **dashboard admin**
-* Ajouter **WebSocket** pour voir l’état des uploads en temps réel
+### Build de production
+```bash
+npm run build
+npm start
+```
 
-## Technologies utilisées
+## 🔧 Configuration
 
-| Côté           | Outils                                                                          |
-| ---------------- | ------------------------------------------------------------------------------- |
-| Backend          | PHP (avec Slim ou Laravel) ou Node.js (Express)                                 |
-| SQL              | MySQL, PostgreSQL, ou SQLite                                                    |
-| NoSQL            | MongoDB                                                                         |
-| Frontend         | HTML/CSS/JavaScript (vanilla ou petit framework style Alpine.js)                |
-| Serveur          | Nginx ou Apache                                                                 |
-| Outils réseau   | `netstat`,`ping`,`curl`,`dig`,`tcpdump`,`iptables`,`nmap`,`ssh` |
-| Conteneurisation | Docker (et Docker Compose) pour la modularité                                  |
-| OS recommandé   | Ubuntu Server 22.04 (VM ou WSL2/Docker)                                         |
+### Variables d'environnement serveur (.env)
+```env
+PORT=3001
+NODE_ENV=development
+CLIENT_URL=http://localhost:3000
+JWT_SECRET=votre-cle-secrete-tres-longue-et-complexe
+ENCRYPTION_KEY=votre-cle-de-chiffrement
+DB_PATH=./data/cloud.db
+STORAGE_PATH=./storage
+MAX_FILE_SIZE=104857600
+```
+
+### Variables d'environnement client (.env)
+```env
+VITE_API_URL=http://localhost:3001/api
+```
+
+## 📁 Structure du projet
+
+```
+mon-cloud-personnel-securis/
+├── server/                 # Backend Node.js
+│   ├── src/
+│   │   ├── database/       # Configuration SQLite
+│   │   ├── middleware/     # Middlewares Express
+│   │   ├── routes/         # Routes API
+│   │   └── server.ts       # Serveur principal
+│   ├── storage/            # Stockage des fichiers
+│   └── data/               # Base de données SQLite
+├── client/                 # Frontend React
+│   ├── src/
+│   │   ├── components/     # Composants React
+│   │   ├── contexts/       # Contextes React
+│   │   ├── services/       # Services API
+│   │   └── types/          # Types TypeScript
+│   └── public/
+└── package.json            # Scripts globaux
+```
+
+## 🔐 Sécurité
+
+- Authentification JWT avec expiration
+- Hashage des mots de passe avec bcrypt
+- Protection CORS configurée
+- Rate limiting pour éviter le spam
+- Validation des inputs
+- Headers de sécurité avec Helmet
+- Chiffrement des fichiers (configurable)
+
+## 🎯 Utilisation
+
+1. **Créer un compte** : Utilisez l'interface d'inscription
+2. **Se connecter** : Entrez vos identifiants
+3. **Uploader des fichiers** : Glissez-déposez ou cliquez pour sélectionner
+4. **Organiser** : Créez des dossiers pour organiser vos fichiers
+5. **Télécharger** : Cliquez sur l'icône de téléchargement
+6. **Naviguer** : Utilisez la sidebar pour naviguer entre dossiers
+
+## 📱 Formats supportés
+
+- **Images** : PNG, JPG, JPEG, GIF
+- **Documents** : PDF, DOC, DOCX, TXT
+- **Vidéos** : MP4, AVI, MOV
+- **Audio** : MP3, WAV, OGG
+- **Archives** : ZIP
+
+## 🚀 Déploiement
+
+### Docker (recommandé)
+```bash
+# À venir - Configuration Docker
+```
+
+### Serveur traditionnel
+1. Build du projet : `npm run build`
+2. Configurer les variables d'environnement
+3. Démarrer : `npm start`
+4. Configurer un reverse proxy (nginx/apache)
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Commit vos changements (`git commit -am 'Ajout nouvelle fonctionnalité'`)
+4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
+5. Créer une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 🐛 Problèmes connus
+
+- Limite d'upload à 100MB par fichier
+- Pas de prévisualisation des fichiers (à venir)
+- Pas de partage de fichiers (à venir)
+
+## 🔮 Roadmap
+
+- [ ] Prévisualisation des images et documents
+- [ ] Partage de fichiers par lien
+- [ ] Synchronisation desktop
+- [ ] Sauvegarde automatique
+- [ ] Interface d'administration
+- [ ] Support multi-utilisateurs avancé
+- [ ] API mobile
+
+---
+
+Made with ❤️ by Guillaume
